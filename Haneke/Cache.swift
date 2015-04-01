@@ -202,11 +202,9 @@ public class Cache<T : DataConvertible where T.Result == T, T : DataRepresentabl
                 var value = T.convertFromData(data)
                 if let value = value {
                     let descompressedValue = self.decompressedImageIfNeeded(value)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        succeed(descompressedValue)
-                        let wrapper = ObjectWrapper(value: descompressedValue)
-                        memoryCache.setObject(wrapper, forKey: key)
-                    })
+                    succeed(descompressedValue)
+                    let wrapper = ObjectWrapper(value: descompressedValue)
+                    memoryCache.setObject(wrapper, forKey: key)
                 }
             })
         }
